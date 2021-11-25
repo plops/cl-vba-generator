@@ -1,0 +1,218 @@
+
+- vba syntax
+https://docs.microsoft.com/en-us/office/vba/language/concepts/getting-started/understanding-visual-basic-syntax
+
+- required for minimum viability:
+#+begin_example
+sub
+dot
+(function call with named arguments)
+string
+space
+comment
+setf
+#+end_example
+
+- sub
+#+begin_example
+[ Private | Public | Friend ] [ Static ] Sub name [ ( arglist ) ]
+[ statements ]
+[ Exit Sub ]
+[ statements ]
+End Sub
+
+arglist ::= [ Optional ] [ ByVal | ByRef ] [ ParamArray ] varname [ ( ) ] [ As type ] [ = defaultvalue ]
+
+Sub Question() 
+    myVar = MsgBox(Prompt:="I enjoy my job.", _ 
+        Title:="Answer Box", Buttons:="4") 
+    MsgBox myVar 
+End Sub
+
+' Sub procedure definition. 
+' Sub procedure with two arguments. 
+Sub SubComputeArea(Length, TheWidth) 
+
+   Dim Area As Double ' Declare local variable. 
+
+   If Length = 0 Or TheWidth = 0 Then 
+      ' If either argument = 0. 
+      Exit Sub ' Exit Sub immediately. 
+   End If 
+   
+   Area = Length * TheWidth ' Calculate area of rectangle. 
+   Debug.Print Area ' Print Area to Debug window. 
+
+End Sub
+
+
+#+end_example
+- named argument
+#+begin_example
+MsgBox Title:="Task Box", Prompt:="Task Completed!"
+
+answer3 = MsgBox(Title:="Question 3", _ 
+Prompt:="Are you happy with your salary?", Buttons:=4) 
+#+end_example
+- function
+  #+begin_example
+[Public | Private | Friend] [ Static ] Function name [ ( arglist ) ] [ As type ]
+[ statements ]
+[ name = expression ]
+[ Exit Function ]
+[ statements ]
+[ name = expression ]
+End Function
+
+Function BinarySearch(. . .) As Boolean 
+'. . . 
+ ' Value not found. Return a value of False. 
+ If lower > upper Then 
+  BinarySearch = False 
+  Exit Function 
+ End If 
+'. . . 
+End Function
+
+
+  #+end_example
+- comment
+
+  #+begin_example
+' this is a comment
+  #+end_example
+- declare variable
+#+begin_example
+Dim myVar, nextVar, thirdVar
+Dim myAnswer As String
+Dim x As Integer, y As Integer, z As Integer
+Dim x%, y%, z as Integer
+#+end_example
+- shorthand for types
+#+begin_example
+    % -integer;
+    & -long;
+    @ -currency;
+    # -double;
+    ! -single;
+    $ -string
+#+end_example
+- fixed array
+  #+begin_example
+Dim MyArray(10, 10) As Integer 
+  #+end_example
+- dynamic array
+#+begin_example
+Dim sngArray() As Single
+ReDim Preserve varArray(UBound(varArray) + 10) 
+#+end_example
+
+  
+- for
+#+begin_example
+For counter = start To end [ Step step ]
+[ statements ]
+[ Exit For ]
+[ statements ]
+Next [ counter ]
+
+For Words = 10 To 1 Step -1 ' Set up 10 repetitions. 
+ For Chars = 0 To 9 ' Set up 10 repetitions. 
+ MyString = MyString & Chars ' Append number to string. 
+ Next Chars ' Increment counter 
+ MyString = MyString & " " ' Append a space. 
+Next Words 
+#+end_example
+- for-each
+#+begin_example
+For Each element In group
+[ statements ]
+[ Exit For ]
+[ statements ]
+Next [ element ]
+
+Dim Found, MyObject, MyCollection 
+Found = False    ' Initialize variable. 
+For Each MyObject In MyCollection    ' Iterate through each element.  
+    If MyObject.Text = "Hello" Then    ' If Text equals "Hello". 
+        Found = True    ' Set Found to True. 
+        Exit For    ' Exit loop. 
+    End If 
+Next
+
+#+end_example
+- while
+  #+begin_example
+While condition [ statements ] Wend
+  #+end_example
+
+- loop
+  #+begin_example
+Do [{ While | Until } condition ]
+[ statements ]
+[ Exit Do ]
+[ statements ]
+Loop
+
+
+
+
+
+Do
+[ statements ]
+[ Exit Do ]
+[ statements ]
+Loop [{ While | Until } condition ]
+
+
+Public Sub LoopExample()
+    Dim Check As Boolean, Counter As Long, Total As Long
+    Check = True: Counter = 0: Total = 0 ' Initialize variables.
+    Do ' Outer loop.
+        Do While Counter < 20 ' Inner Loop
+            Counter = Counter + 1 ' Increment Counter.
+            If Counter Mod 10 = 0 Then ' Check in with the user on every multiple of 10.
+                Check = (MsgBox("Keep going?", vbYesNo) = vbYes) ' Stop when user click's on No
+                If Not Check Then Exit Do ' Exit inner loop.
+            End If
+        Loop
+        Total = Total + Counter ' Exit Do Lands here.
+        Counter = 0
+    Loop Until Check = False ' Exit outer loop immediately.
+    MsgBox "Counted to: " & Total
+End Sub
+
+
+  #+end_example
+
+- conditional
+#+begin_example
+If condition Then
+[ statements ]
+[ ElseIf condition-n Then
+[ elseifstatements ]]
+[ Else
+[ elsestatements ]]
+End If
+
+Dim Number, Digits, MyString 
+Number = 53 ' Initialize variable. 
+If Number < 10 Then 
+ Digits = 1 
+ElseIf Number < 100 Then 
+' Condition evaluates to True so the next statement is executed. 
+ Digits = 2 
+Else 
+ Digits = 3 
+End If 
+#+end_example
+
+
+- dictionary
+#+begin_example
+Dim d                   'Create a variable
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "Athens"     'Add some keys and items
+d.Add "b", "Belgrade"
+d.Add "c", "Cairo"
+#+end_example
